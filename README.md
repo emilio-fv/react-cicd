@@ -10,8 +10,8 @@ This pipeline will consist of the following 4 stages:
     - Creates production build
     - Uses the `npm run build` command to produce production build ✅
 3. Test → pull request into main branch
-    - Tests production build
-    - Uses the `npm run test` command to run all tests
+    - Run tests
+    - Uses the `npm run test` command to run all tests ✅
 4. Deploy → main branch
     - Used to deploy to production
     - Create pull request to merge staging branch to main branch which Vercel is connected to that deploys when changes are detected
