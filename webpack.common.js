@@ -1,6 +1,4 @@
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -14,7 +12,6 @@ module.exports = {
   module: {
     rules: [
       {
-        // babel loader for js & jsx files
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
@@ -22,8 +19,7 @@ module.exports = {
           options: {
             presets: [
               '@babel/preset-env',
-              '@babel/preset-react', 
-              // ['@babel/preset-react', { runtime: "automatic" }] // what does this do??
+              ['@babel/preset-react', { runtime: 'automatic' }]
             ]
           }
         }
