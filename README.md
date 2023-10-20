@@ -1,12 +1,24 @@
-This repo is to test out a simply CI/CD pipeline for a React app using Github Actions
+This repo is to test out a simple CI/CD pipeline for a React app using Github Actions, Docker, and Vercel
 
-1. Develop → create the source code 
-    1. Use Docker to create a development environment that will run on any machine
-    2. Independent branches will be used for new features, bug fixes, etc.
-2. Build → create production build
-    1. When pushed to the development or master branch, production build is created & tested
-    2. Setup the `npm run build` command to produce production build
-3. Test → test production build
-    1. Setup the `npm run test` command to run all tests
-4. Deploy → deploy production build
-    1. Create pull request to merge development branch to master branch which Vercel is connected to to deploy automatically upon changes
+This pipeline will consist of the following 4 stages:
+1. Develop → development branch  ✅
+    - Use to create the new source code for each sprint
+    - Docker is used to create the development environment that runs application on any machine 
+    - New branches will be created from this branch for building new features and bug fixes 
+    - Once all features/bug fixes are implemented, a pull request is submitted to merge into main branch 
+2. Build → pull request into main branch 
+    - Creates production build
+    - Uses the `npm run build` command to produce production build ✅
+3. Test → pull request into main branch
+    - Tests production build
+    - Uses the `npm run test` command to run all tests
+4. Deploy → main branch
+    - Used to deploy to production
+    - Create pull request to merge staging branch to main branch which Vercel is connected to that deploys when changes are detected
+
+
+Commands
+npm run docker:build
+npm run docker:start
+npm run docker:stop
+npm run docker:remove

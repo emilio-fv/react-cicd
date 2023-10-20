@@ -1,62 +1,43 @@
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const devMode = process.env.NODE_ENV !== 'production';
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'index.js'),
-  target: 'web',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
+  entry: path.resolve(__dirname, 'src/index.js'), 
+  output: { 
+    path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',
+    clean: true,
   },
   module: {
     rules: [
       {
+        // babel loader for js & jsx files
         test: /\.(js|jsx)$/,
-        include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
             presets: [
               '@babel/preset-env',
-              ['@babel/preset-react', { runtime: "automatic" }]
+              '@babel/preset-react', 
+              // ['@babel/preset-react', { runtime: "automatic" }] // what does this do??
             ]
           }
         }
       },
-      {
-        test: /\.css$/i,
-        exclude: /node_modules/,
-        use: [
-          devMode ? 'style-loader': MiniCssExtractPlugin.loader(),
-          'css-loader'
-        ]
-      },
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        exclude: /node_modules/,
-        type: 'asset/resource',
-      }
     ]
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json']
+    extensions: ['.js', '.jsx', '.json'],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'React App',
-      template: path.join(__dirname, 'public', 'index.html'),
+      template: path.resolve(__dirname, 'public/index.html'),
       filename: 'index.html',
       inject: true
     })
-  ].concat(devMode ? [] : [new MiniCssExtractPlugin()]),
-  optimization: {
-    minimizer: [
-      '...',
-      new CssMinimizerPlugin(),
-    ]
-  }
+  ]
 }
